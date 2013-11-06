@@ -1,0 +1,83 @@
+pCartersianSet CompositeOperation(pCartersianSet pA, pCartersianSet pB)
+{
+
+       pCartersianSet pCS = createNullCartersianSet();
+       //初始化指针
+       resetCartersianSet(pA);
+       resetCartersianSet(pB);
+       
+       if(!isNullCartersianSet(pA)&&!isNullCartersianSet(pA)){
+           while(!isEndOfCartersianSet(pA)){
+               //取出pA序偶中的二元
+               pOrderedCouple pACoupleElem = getCurrentCartersianSetElem(pA);
+               pOriginalSetElem pAElem = getSecondElemOfOrderedCouple(pACoupleElem);
+               while(!isEndOfCartersianSet(pB)){
+                  //取出pB序偶中的一元
+                  pOrderedCouple pBCoupleElem = getCurrentCartersianSetElem(pB);
+                  pOriginalSetElem pBElem = getFirstElemOfOrderedCouple(pBCoupleElem);
+                  if(isEqualOriginalSetElem(pAElem,pBElem)){
+                       pOrderedCouple pOC_1 = createOrderedCouple(getFirstElemOfOrderedCouple(pACoupleElem),getSecondElemOfOrderedCouple(pBCoupleElem));
+                       
+                       OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+                  }
+                  
+                  nextOriginalSetPos(pB);
+               
+               }
+                nextOriginalSetPos(pA);
+                resetCartersianSet(pB);
+           }
+      
+           return pCS;
+       
+       }
+}
+
+pCartersianSet PowOperation(pOriginalSet pA,
+                            pCartersianSet pBinaryRelationR, 
+                            int n)
+                                                        
+{
+       pCartersianSet pCS;
+       //初始化指针
+       resetCartersianSet(pA);
+       
+       if(n==0){
+       
+          pCS = createNullCartersianSet();
+          while(!isEndOfOriginalSet(pA)){
+              pOriginalSetElem pAOS = getCurrentOriginalSetElem(pA);
+              pOrderedCouple pOC_1 = createOrderedCouple(pAOS,pAOS);
+              
+              nextOriginalSetPos(pA);
+              OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+          }
+       }else{
+          pCS = copyCartersianSet(pBinaryRelationR);
+          for(int i=2;i<=n;i++){
+              pCS =  CompositeOperation(pCS,pBinaryRelationR);
+          
+          }
+       
+       }
+       
+       return pCS;
+
+}
+
+
+
+boolean IsTransitive(pOriginalSet pA, pCartersianSet pBinaryRelationR)
+{
+     pCartersianSet pResult = PowOperation(pA,pBinaryRelationR,2);
+     resetCartersianSet(pResult);
+     resetCartersianSet(pBinaryRelationR);
+     while(!isEndOfCartersianSet(pResult)){
+         if(!isInCartersianSet(pBinaryRelationR,getCurrentCartersianSetElem(pResult))){
+             return false;
+         }
+         nextCartersianSetPos(pResult);
+     }
+     
+     return true;
+}

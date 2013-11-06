@@ -1,0 +1,58 @@
+Boolean IsStatementFormula(pStatementFormula pFormula){
+  //Add your code here
+  boolean isBegin = true; 
+  boolean isElem = false;
+  boolean isSign = false;
+  int left = 0;
+  int right = 0; 
+  boolean isFormula = true;
+  StatementFormulaSymbles curFormula = getCurrentSymbleType(pFormula);
+  while(curFormula!=EndOfFormula){
+      if(curFormula == PropositionalVariable){
+          if(isElem){
+             isFormula = false;
+             break;
+          }else{
+              isElem = true;
+              isBegin = false;
+          }
+      }else if(curFormula == Conjunction
+                ||curFormula == Disjunction
+                ||curFormula == Implication
+                ||curFormula == Equivalence){
+           if(isElem){
+              isElem = false;
+           }else{
+               isFormula = false;
+               break;
+           }
+      }else if(curFormula == LeftParenthesis){
+         left++; 
+      }else if(curFormula == RightParenthesis){
+         right++;
+      }else if(curFormula == Negation){
+          if(isElem&&!isBegin){
+              isFormula = false;
+          }
+      }
+      /*
+      if(!(isElem&&isSign)){
+          isFormula = true;
+      }else{
+           isFormula = false; 
+      }
+      */
+      
+      nextPos(pFormula);
+      curFormula = getCurrentSymbleType(pFormula);
+  
+  }
+  
+    if(left!=right){
+       isFormula = false;
+    }
+    if(!isElem&&!isBegin){
+       isFormula = false;     
+    }
+    return isFormula; 
+}

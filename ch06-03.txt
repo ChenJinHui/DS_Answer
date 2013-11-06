@@ -1,0 +1,17 @@
+pCartersianSet IdentityRelation(pOriginalSet pSet)
+{
+   pCartersianSet pCS = createNullCartersianSet();
+   
+   if(!isNullOriginalSet(pSet)){
+      resetOriginalSet(pSet);
+       while(!isEndOfOriginalSet(pSet)){
+            pOriginalSetElem pAElem = getCurrentOriginalSetElem(pSet);
+            pOrderedCouple pOC_1 = createOrderedCouple(pAElem,pAElem);
+            OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+       
+            nextOriginalSetPos(pSet);
+       }
+   }
+   
+   return pCS;
+}

@@ -1,0 +1,20 @@
+boolean IsAntiReflexivity(pOriginalSet pA, pCartersianSet pBinaryRelationR)
+{
+       pOriginalSetElem pAElem_1;
+       pOriginalSetElem pAElem_2;
+       resetCartersianSet(pA);
+       resetCartersianSet(pBinaryRelationR);
+       
+        while(!isEndOfCartersianSet(pBinaryRelationR)){
+            pOrderedCouple pBinaryRelationRCoupleElem = getCurrentCartersianSetElem(pBinaryRelationR);
+            pAElem_1 = getFirstElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            pAElem_2 = getSecondElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            if(isEqualOriginalSetElem(pAElem_1,pAElem_2)){
+                return false;
+            }
+            nextOriginalSetPos(pBinaryRelationR);
+            
+        }
+        
+        return true;
+}

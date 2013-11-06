@@ -1,0 +1,29 @@
+pSet SetIntersection(pSet pA, pSet pB){
+
+      //初始化数组
+      SetElem *pAElemsA;
+      SetElem *pAElemsB;
+      
+      pAElemsA = outToBuffer(pA);
+      pAElemsB = outToBuffer(pB);
+      
+      //创建新数组
+      pSet mySet;
+      mySet =  createNullSet();
+      
+      //向数组添加元素
+      
+      //处理空集
+      if(isNullSet(pA)||isNullSet(pB)){
+         return mySet;
+      }else{
+         while(*pAElemsA!='\n'){
+            if(isInSet(pB,*pAElemsA)){
+                directInsertSetElem(mySet,*pAElemsA);
+            }
+            pAElemsA++;
+         }
+      
+      }
+     return mySet;
+}

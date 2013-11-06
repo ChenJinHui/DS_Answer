@@ -1,0 +1,37 @@
+pSet SetUnion(pSet pA, pSet pB) {
+
+      //初始化数组
+      SetElem *pAElemsA;
+      SetElem *pAElemsB;
+      
+      pAElemsA = outToBuffer(pA);
+      pAElemsB = outToBuffer(pB);
+      
+      //创建新数组
+      pSet mySet;
+      mySet =  createNullSet();
+      
+      //向数组添加元素
+      //注意处理重复元素
+      
+      if(!isNullSet(pA)){
+          while(*pAElemsA!='\n'){
+             directInsertSetElem(mySet,*pAElemsA);
+             *pAElemsA++;
+          }
+          
+          
+          
+      }
+      
+      if(!isNullSet(pB)){
+            while(*pAElemsB!='\n'){
+               if(!isInSet(pA,*pAElemsB)){
+                    directInsertSetElem(mySet,*pAElemsB);
+               }
+               *pAElemsB++ ;
+            }
+      }
+      
+      return mySet;
+}

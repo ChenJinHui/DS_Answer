@@ -1,0 +1,27 @@
+pCartersianSet ReflexiveClosure(pOriginalSet pA, pCartersianSet pBinaryRelationR)
+{
+         
+         pCartersianSet pCS = createNullCartersianSet();
+         pCartersianSet pResult =  copyCartersianSet(pBinaryRelationR);
+         
+         resetOriginalSet(pA);
+         resetCartersianSet(pBinaryRelationR);
+         while(!isEndOfOriginalSet(pA)){
+             pOriginalSetElem elem =  getCurrentOriginalSetElem(pA);
+             pOrderedCouple pOC_1 = createOrderedCouple(elem,elem);
+             OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+             nextOriginalSetPos(pA);
+         }
+         resetOriginalSet(pA);
+         resetCartersianSet(pBinaryRelationR);
+          resetCartersianSet(pCS);
+         while(!isEndOfCartersianSet(pCS)){
+             pOrderedCouple pCoupleElem = getCurrentCartersianSetElem(pCS);
+             if(!isInCartersianSet(pResult,pCoupleElem)){
+                   OrderedCoupleInsertToCartersianSet(pResult,pCoupleElem);
+             }
+             nextCartersianSetPos(pCS);
+         }
+         
+         return pResult;
+}

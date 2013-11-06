@@ -1,0 +1,39 @@
+int getElemsCount(pOriginalSet pA){
+    int count = 0;
+    resetCartersianSet(pA);
+    while(!isEndOfCartersianSet(pA)){
+        count++;
+        nextOriginalSetPos(pA);
+    }
+    
+    return count;
+
+}
+
+boolean IsReflexivity(pOriginalSet pA, pCartersianSet pBinaryRelationR)
+{
+       int num =  getElemsCount(pA);
+        nextOriginalSetPos(pA);
+       int count = 0;
+       pOriginalSetElem pAElem_1;
+       pOriginalSetElem pAElem_2;
+       resetCartersianSet(pA);
+       resetCartersianSet(pBinaryRelationR);
+       
+        while(!isEndOfCartersianSet(pBinaryRelationR)){
+            pOrderedCouple pBinaryRelationRCoupleElem = getCurrentCartersianSetElem(pBinaryRelationR);
+            pAElem_1 = getFirstElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            pAElem_2 = getSecondElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            if(isEqualOriginalSetElem(pAElem_1,pAElem_2)){
+                count++;
+            }
+            nextOriginalSetPos(pBinaryRelationR);
+            
+        }
+        
+        if(count==num){
+           return true;
+        }else{
+           return false;    
+        }
+}

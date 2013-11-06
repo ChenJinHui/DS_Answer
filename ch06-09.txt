@@ -1,0 +1,52 @@
+int getElemsCount(pOriginalSet pA){
+    int count = 0;
+    resetCartersianSet(pA);
+    while(!isEndOfCartersianSet(pA)){
+        count++;
+        nextOriginalSetPos(pA);
+    }
+    
+    return count;
+
+}
+
+Reflexivity_Type IsReflexivity(pOriginalSet pA, pCartersianSet pBinaryRelationR)
+{
+       int num =  getElemsCount(pA);
+       nextOriginalSetPos(pA);
+       int count = 0;
+       pOriginalSetElem pAElem_1;
+       pOriginalSetElem pAElem_2;
+       resetCartersianSet(pA);
+       resetCartersianSet(pBinaryRelationR);
+       if(isNullCartersianSet(pBinaryRelationR)&&isNullOriginalSet(pA)){
+          return  REFLEXIVITY_AND_ANTI_REFLEXIVITY;
+       }
+       
+        while(!isEndOfCartersianSet(pBinaryRelationR)){
+            pOrderedCouple pBinaryRelationRCoupleElem = getCurrentCartersianSetElem(pBinaryRelationR);
+            pAElem_1 = getFirstElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            pAElem_2 = getSecondElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+            if(isEqualOriginalSetElem(pAElem_1,pAElem_2)){
+                count++;
+            }
+            nextOriginalSetPos(pBinaryRelationR);
+            
+        }
+        
+        if(count==num){
+           return REFLEXIVITY;
+        }else if(count==0){
+           return ANTI_REFLEXIVITY;
+        }else{
+        
+           return NOT_REFLEXIVITY_AND_NOT_ANTI_REFLEXIVITY;
+        }
+}
+
+
+Reflexivity_Type DetermineReflexivity(pOriginalSet pA,
+                                      pCartersianSet pBinaryRelationR)
+{
+        return IsReflexivity(pA,pBinaryRelationR);
+}

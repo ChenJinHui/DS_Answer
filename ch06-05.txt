@@ -1,0 +1,21 @@
+pCartersianSet InverseOperation(pCartersianSet pA)
+{
+        pCartersianSet pCS = createNullCartersianSet();
+       //初始化指针
+       resetCartersianSet(pA);
+       
+       while(!isEndOfCartersianSet(pA)){
+           //取出pA序偶中的二元
+               pOrderedCouple pACoupleElem = getCurrentCartersianSetElem(pA);
+               pOriginalSetElem pAElem_1 = getFirstElemOfOrderedCouple(pACoupleElem);
+               pOriginalSetElem pAElem_2 = getSecondElemOfOrderedCouple(pACoupleElem);
+       
+               //翻转加入新的序偶
+               pOrderedCouple pOC_1 = createOrderedCouple(pAElem_2,pAElem_1);
+               OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+               
+               nextOriginalSetPos(pA);
+       }
+       
+       return pCS;
+}

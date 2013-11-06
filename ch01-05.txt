@@ -1,0 +1,83 @@
+//计算差
+pSet SetSubtraction(pSet pA, pSet pB){
+
+      //初始化数组
+      SetElem *pAElemsA;
+      SetElem *pAElemsB;
+      
+      pAElemsA = outToBuffer(pA);
+      pAElemsB = outToBuffer(pB);
+      
+      //创建新数组
+      pSet mySet;
+      mySet =  createNullSet();
+      
+      //向数组添加元素
+      
+      //差运算，元素属于a不属于b
+      
+      if(isNullSet(pA)){
+         return mySet; 
+      }else if(isNullSet(pB)){
+          return pA;
+      
+      }else{
+         while(*pAElemsA!='\n'){
+            if(!isInSet(pB,*pAElemsA)){
+                directInsertSetElem(mySet,*pAElemsA);
+            }
+            
+             pAElemsA++;
+         }
+      }
+      
+      return mySet;
+}
+//计算并
+pSet SetUnion(pSet pA, pSet pB) {
+
+      //初始化数组
+      SetElem *pAElemsA;
+      SetElem *pAElemsB;
+      
+      pAElemsA = outToBuffer(pA);
+      pAElemsB = outToBuffer(pB);
+      
+      //创建新数组
+      pSet mySet;
+      mySet =  createNullSet();
+      
+      //向数组添加元素
+      //注意处理重复元素
+      
+      if(!isNullSet(pA)){
+          while(*pAElemsA!='\n'){
+             directInsertSetElem(mySet,*pAElemsA);
+             *pAElemsA++;
+          }
+          
+          
+          
+      }
+      
+      if(!isNullSet(pB)){
+            while(*pAElemsB!='\n'){
+               if(!isInSet(pA,*pAElemsB)){
+                    directInsertSetElem(mySet,*pAElemsB);
+               }
+               *pAElemsB++ ;
+            }
+      }
+      
+      return mySet;
+}
+
+
+pSet SetSysmmetricDifference(pSet pA, pSet pB){
+  //Add your code here
+    pSet resultA =  SetSubtraction(pA,pB);
+    pSet resultB =  SetSubtraction(pB,pA);
+    
+    return  SetUnion(resultA,resultB);
+
+}

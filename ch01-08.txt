@@ -1,0 +1,47 @@
+//该方法用于复制集合A中的元素到集合B
+
+void copyABSet(pSet pA,pSet pB){
+      int k=0;
+      SetElem *pAElems;
+      pAElems = outToBuffer(pA);
+      
+      while(*(pAElems+k)!='\n'){
+         directInsertSetElem(pB,*(pAElems+k));
+         k++;
+      }
+
+}  
+
+void getPowerSet(pFamilyOfSet familySet,SetElem *pElems,int i,pSet pResult){
+
+    pSet tempSet = createNullSet();
+    copyABSet(pResult,tempSet);
+    //判断是否为最后一个元素
+    if(*(pElems+i)=='\n'){
+      //将结果集添加到集组中
+      insertToFamilyOfSet(familySet,tempSet);
+    }else{
+       //开始递归               
+       
+       //pElems++;
+       getPowerSet(familySet,pElems,i+1,tempSet);
+       directInsertSetElem(tempSet,*(pElems+i));
+       getPowerSet(familySet,pElems,i+1,tempSet);
+    }
+
+}
+
+pFamilyOfSet PowerSet(pSet pA){
+  //Add your code here
+  
+  //创建一个空集组
+  pFamilyOfSet familySet = createNullFamilyOfSet();
+  int count = 0;
+  SetElem *pAElems;
+  pAElems = outToBuffer(pA);
+  pSet pResult = createNullSet();
+  
+  getPowerSet(familySet,pAElems,count,pResult);
+  
+   return familySet;
+}

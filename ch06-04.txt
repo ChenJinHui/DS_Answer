@@ -1,0 +1,34 @@
+pCartersianSet CompositeOperation(pCartersianSet pA, pCartersianSet pB)
+{
+
+       pCartersianSet pCS = createNullCartersianSet();
+       //初始化指针
+       resetCartersianSet(pA);
+       resetCartersianSet(pB);
+       
+       if(!isNullCartersianSet(pA)&&!isNullCartersianSet(pA)){
+           while(!isEndOfCartersianSet(pA)){
+               //取出pA序偶中的二元
+               pOrderedCouple pACoupleElem = getCurrentCartersianSetElem(pA);
+               pOriginalSetElem pAElem = getSecondElemOfOrderedCouple(pACoupleElem);
+               while(!isEndOfCartersianSet(pB)){
+                  //取出pB序偶中的一元
+                  pOrderedCouple pBCoupleElem = getCurrentCartersianSetElem(pB);
+                  pOriginalSetElem pBElem = getFirstElemOfOrderedCouple(pBCoupleElem);
+                  if(isEqualOriginalSetElem(pAElem,pBElem)){
+                       pOrderedCouple pOC_1 = createOrderedCouple(getFirstElemOfOrderedCouple(pACoupleElem),getSecondElemOfOrderedCouple(pBCoupleElem));
+                       
+                       OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+                  }
+                  
+                  nextOriginalSetPos(pB);
+               
+               }
+                nextOriginalSetPos(pA);
+                resetCartersianSet(pB);
+           }
+       
+           return pCS;
+       
+       }
+}

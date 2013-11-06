@@ -1,0 +1,39 @@
+pSet SetComplement(pSet pA, pSet pI){
+      //初始化数组
+      SetElem *pAElemsA;
+      SetElem *pAElemsI;
+      
+      pAElemsA = outToBuffer(pA);
+      pAElemsI = outToBuffer(pI);
+      
+      //创建新数组
+      pSet mySet;
+      mySet =  createNullSet();
+      
+      //处理数组
+      if(isNullSet(pA)&&isNullSet(pI)){
+          return mySet;
+      }
+      
+      while(*pAElemsA!='\n'){
+         if(!isInSet(pI,*pAElemsA)){
+            return NULL;
+         
+         }
+           *pAElemsA++;
+      }
+      
+      while(*pAElemsI!='\n'){
+         
+            if(!isInSet(pA,*pAElemsI)){
+               directInsertSetElem(mySet,*pAElemsI);
+            }
+         
+             
+         pAElemsI++;
+      }
+
+      
+     return mySet; 
+
+}

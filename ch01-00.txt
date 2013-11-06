@@ -1,0 +1,15 @@
+Boolean IsInSet(SetElem elem, pSet pA){
+  //Add your code here
+  
+  SetElem *pAElems;
+  pAElems = outToBuffer(pA);
+  while(*pAElems!='\n'){
+     if(elem==*pAElems)
+     {
+        return true;
+     }
+     
+     pAElems++;
+  }
+   return false;
+}

@@ -1,0 +1,46 @@
+  void InsertSetElem(pSet dest, SetElem elem)
+{
+    if (isInSet(dest, elem) == false)
+        directInsertSetElem(dest, elem);
+}
+
+int set_size(pSet set)
+{
+    SetElem *buf;
+    int size;
+    
+    buf = outToBuffer(set);
+    for (size = 0;*buf != '\n';size++)
+        buf++;
+        
+    return size;         
+}
+
+pSet create_set_from_bitmap(SetElem *elems, unsigned int map)
+{
+    pSet set;
+    int i;
+    
+    set = createNullSet();
+    for (i = 0;map > 0;map = map >> 1, i++)
+        if (map & 1)
+            InsertSetElem(set, *(elems + i)); 
+    
+    return set;
+}
+
+pFamilyOfSet PowerSet(pSet pA)
+{
+    unsigned int map, i;
+    SetElem *buf;    
+    pFamilyOfSet ret;
+    
+    ret = createNullFamilyOfSet();
+    buf = outToBuffer(pA);
+    map = (1 << set_size(pA)) - 1;  //表示在[0,2^(n-1)]的整数区间
+    for (i = 0;i <= map;i++)
+        insertToFamilyOfSet(ret, create_set_from_bitmap(buf, i));
+                
+    return ret;
+}
+

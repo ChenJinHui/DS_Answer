@@ -1,0 +1,23 @@
+pCartersianSet SymmetricClosure(pCartersianSet pBinaryRelationR)
+{
+     pOriginalSetElem pAElem_1;
+     pOriginalSetElem pAElem_2;
+     pCartersianSet pResult =  copyCartersianSet(pBinaryRelationR);
+     resetCartersianSet(pBinaryRelationR);
+     resetCartersianSet(pResult);
+     while(!isEndOfCartersianSet(pBinaryRelationR)){
+          pOrderedCouple pBinaryRelationRCoupleElem = getCurrentCartersianSetElem(pBinaryRelationR);
+          pAElem_1 = getFirstElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+          pAElem_2 = getSecondElemOfOrderedCouple(pBinaryRelationRCoupleElem);
+          pOrderedCouple pOC_1 = createOrderedCouple(pAElem_2,pAElem_1);
+          
+          if(!isInCartersianSet(pResult,pOC_1)){
+              OrderedCoupleInsertToCartersianSet(pResult,pOC_1);
+          
+          }
+          
+          nextCartersianSetPos(pBinaryRelationR);
+     }
+     
+     return pResult;
+}

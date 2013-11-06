@@ -1,0 +1,44 @@
+//判断集合A是否包含集合B
+
+boolean isInclude(pSet pA, pSet pB){
+     //初始化数组
+      SetElem *pAElemsB;
+      pAElemsB = outToBuffer(pB);
+      
+      if(isNullSet(pA)&&!isNullSet(pB)){
+         return false;
+      }else if(isNullSet(pA)&&isNullSet(pB)){
+      
+         return true;
+      }else{
+          while(*pAElemsB!='\n'){
+             if(!isInSet(pA,*pAElemsB)){
+                return false;
+             }
+             
+             *pAElemsB++;
+          }
+      
+      }
+      return true;
+
+}
+
+SetRelationshipStatus SetRelationship(pSet pA, pSet pB) {
+  //Add your code here
+       boolean resultAB = isInclude(pA,pB);
+       boolean resultBA = isInclude(pB,pA);
+       
+       if((resultAB==true)&&(resultBA==false)){
+            return  REALINCLUDING;
+       
+       }else if((resultAB==false)&&(resultBA==true)){
+       
+             return REALINCLUDED;
+       }else if((resultAB==true)&&(resultBA==true)){
+              return EQUAL;
+       }else{
+              return NOT_INCLUSIVE;
+       }
+
+}

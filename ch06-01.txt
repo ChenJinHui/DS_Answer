@@ -1,0 +1,33 @@
+pCartersianSet CartesianProduct(pOriginalSet pA, pOriginalSet pB)
+{
+    pCartersianSet pCS = createNullCartersianSet();
+
+    if(!isNullOriginalSet(pA)&&!isNullOriginalSet(pB)){
+         //初始化集合指针
+         resetOriginalSet(pA);
+         resetOriginalSet(pB);
+         
+         while(!isEndOfOriginalSet(pA)){
+             
+             while(!isEndOfOriginalSet(pB)){
+                 //创建序偶
+                 //直接创建对称的序偶
+                 pOriginalSetElem pAElem = getCurrentOriginalSetElem(pA);
+                 pOriginalSetElem pBElem = getCurrentOriginalSetElem(pB);
+                 pOrderedCouple pOC_1 = createOrderedCouple(pAElem,pBElem);
+                 //pOrderedCouple pOC_2 = createOrderedCouple(pBElem,pAElem);
+                 
+                 //加入到集合笛卡尔积中
+                 OrderedCoupleInsertToCartersianSet(pCS,pOC_1);
+                 //OrderedCoupleInsertToCartersianSet(pCS,pOC_2);
+                 //pB指针后移一位
+                 nextOriginalSetPos(pB);
+             }
+            nextOriginalSetPos(pA);
+             //初始化pB指针
+             resetOriginalSet(pB);
+         }
+    }
+    
+    return pCS;
+}
